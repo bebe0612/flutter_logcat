@@ -11,6 +11,10 @@ class LogProvider extends ChangeNotifier {
   late HttpServer _server;
 
   List<LogModel> logs = [];
+  List<String> typeFilters = [
+    'page_event',
+    'page_state',
+  ];
 
   LogProvider() {
     var handler =
@@ -38,6 +42,7 @@ class LogProvider extends ChangeNotifier {
   }
 
   appendLog(LogModel log) {
+    if (typeFilters.contains(log.type)) return;
     logs.add(log);
     notifyListeners();
   }

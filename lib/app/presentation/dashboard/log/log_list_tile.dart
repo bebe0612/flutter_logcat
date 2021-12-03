@@ -26,6 +26,12 @@ class _LogListTileState extends State<LogListTile> {
       case 'navigation':
         tileColor = Colors.green[200]!;
         break;
+      case 'page_event':
+        tileColor = Colors.blueGrey[300]!;
+        break;
+      case 'page_state':
+        tileColor = Colors.blueGrey[200]!;
+        break;
     }
     return Material(
       color: tileColor,
