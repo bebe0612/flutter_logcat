@@ -24,8 +24,17 @@ class _SideBarState extends State<SideBar> {
     final provider = Provider.of<EnvironmentProvider>(context);
     return Container(
       width: 200,
-      color: AppColor.dashboardBackground(context),
-      padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+      decoration: BoxDecoration(
+        color: AppColor.dashboardBackground(context),
+        gradient: const LinearGradient(
+          colors: [
+            Color.fromRGBO(0, 139, 188, 1),
+            Color.fromRGBO(0, 134, 186, 1),
+          ],
+          end: Alignment.center,
+        ),
+      ),
+      padding: const EdgeInsets.symmetric(vertical: 30),
       child: Column(
         children: [
           Container(
@@ -50,7 +59,6 @@ class _SideBarState extends State<SideBar> {
               widget.onTabChanged(0);
             },
           ),
-          const SizedBox(height: 10),
           SideTab(
             title: 'Setting',
             isSelected: _index == 1,

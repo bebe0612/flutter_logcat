@@ -16,7 +16,7 @@ class _DashBoardViewState extends State<DashBoardView> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Theme.of(context).backgroundColor,
+      color: const Color.fromRGBO(246, 248, 250, 1),
       child: Row(
         children: [
           SideBar(

@@ -13,17 +13,14 @@ class LogScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Theme.of(context).shadowColor,
-              blurRadius: 5.0,
-              offset: const Offset(-1, 0),
-              spreadRadius: 5.0,
-            )
-          ]),
+      decoration: BoxDecoration(color: Theme.of(context).cardColor, boxShadow: [
+        BoxShadow(
+          color: Theme.of(context).shadowColor,
+          blurRadius: 5.0,
+          offset: const Offset(-1, 0),
+          spreadRadius: 5.0,
+        )
+      ]),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,

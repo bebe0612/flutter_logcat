@@ -57,10 +57,8 @@ class _LogListTileState extends State<LogListTile> {
                   Expanded(
                     child: Text(
                       widget.logModel.title,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(overflow: TextOverflow.ellipsis),
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          overflow: TextOverflow.ellipsis, color: Colors.black),
                     ),
                   ),
                   const Icon(Icons.one_x_mobiledata),

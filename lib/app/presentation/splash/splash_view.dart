@@ -30,7 +30,7 @@ class _SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.blue,
+      color: Colors.white,
       child: Center(
         child: AnimatedOpacity(
           opacity: _isShow ? 1 : 0,
