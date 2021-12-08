@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_logcat/app/setting/log_icon_converter.dart';
 import 'package:flutter_logcat/json_view/src/flutter_json_view.dart';
 import 'package:provider/provider.dart';
 
@@ -26,10 +27,11 @@ class LogDetailPanel extends StatelessWidget {
       }
     }
 
-    if (focusLog == null)
+    if (focusLog == null) {
       return Container(
-        color: Color.fromRGBO(240, 240, 240, 1),
+        color: const Color.fromRGBO(240, 240, 240, 1),
       );
+    }
 
     return Container(
       decoration: const BoxDecoration(
@@ -51,15 +53,49 @@ class LogDetailPanel extends StatelessWidget {
                 Container(
                   width: 40,
                   height: 40,
-                  color: Colors.blueGrey,
+                  decoration: BoxDecoration(
+                    color: Colors.blueGrey,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    LogIconConverter.getIconData(focusLog.type),
+                    color: Colors.white,
+                  ),
                 ),
                 SizedBox(width: 10),
                 Expanded(
                     child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Network"),
-                    Text(DateTime.now().toString()),
+                    Text.rich(
+                      TextSpan(
+                        text: focusLog.method + ' ',
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                              backgroundColor: Colors.yellow,
+                            ),
+                        children: [
+                          TextSpan(
+                            text: focusLog.title,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                backgroundColor: Colors.transparent),
+                          )
+                        ],
+                      ),
+                    ),
+                    Text.rich(
+                      TextSpan(
+                        text: 'date : ',
+                        style: Theme.of(context).textTheme.caption,
+                        children: [
+                          TextSpan(
+                              text: focusLog.dateTime.toString(),
+                              style: TextStyle(
+                                color: Colors.black,
+                              ))
+                        ],
+                      ),
+                    ),
                   ],
                 )),
               ],
