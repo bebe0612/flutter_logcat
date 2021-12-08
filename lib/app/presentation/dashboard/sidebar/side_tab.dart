@@ -23,22 +23,22 @@ class SideTab extends StatelessWidget {
         },
         child: Container(
           decoration: BoxDecoration(
-              color: isSelected ? const Color.fromRGBO(0, 112, 173, 1) : null),
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-          child: Row(
-            children: [
-              Icon(
-                iconData,
-                color: Theme.of(context).cardColor,
-                size: 20.0,
-              ),
-              const SizedBox(width: 10),
-              Text(title,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1
-                      ?.copyWith(color: Theme.of(context).cardColor)),
-            ],
+              color: isSelected ? Colors.white : null,
+              border: isSelected
+                  ? const Border(
+                      bottom: BorderSide(
+                      color: Color.fromRGBO(223, 223, 223, 1),
+                    ))
+                  : const Border(
+                      right: BorderSide(
+                      color: Color.fromRGBO(223, 223, 223, 1),
+                    ))),
+          width: 60,
+          height: 60,
+          child: Icon(
+            iconData,
+            color: isSelected ? Colors.black : Colors.white,
+            size: 20.0,
           ),
         ),
       ),

@@ -10,7 +10,14 @@ import 'package:shelf/shelf_io.dart' as shelf_io;
 class LogProvider extends ChangeNotifier {
   late HttpServer _server;
 
-  List<LogModel> logs = [];
+  List<LogModel> logs = [
+    LogModel(
+      dateTime: DateTime.now(),
+      type: 'network',
+      title: 'title',
+      detail: '',
+    ),
+  ];
   List<String> typeFilters = [
     'page_event',
     'page_state',
@@ -32,7 +39,6 @@ class LogProvider extends ChangeNotifier {
   Future<Response> _echoRequest(Request request) async {
     try {
       final String body = await request.readAsString();
-
       final Map<String, dynamic> json = jsonDecode(body);
 
       appendLog(LogModel.fromJson(json));

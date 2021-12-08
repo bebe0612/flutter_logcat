@@ -9,6 +9,7 @@ class ThemeProvider extends ChangeNotifier {
     textTheme: const TextTheme(
       bodyText1: TextStyle(
         fontFamily: 'NotoSans',
+        fontSize: 15,
         color: Colors.black,
       ),
       bodyText2: TextStyle(
@@ -46,6 +47,7 @@ class ThemeProvider extends ChangeNotifier {
     textTheme: const TextTheme(
       bodyText1: TextStyle(
         fontFamily: 'NotoSans',
+        fontSize: 15,
         color: Colors.white,
       ),
       bodyText2: TextStyle(
@@ -57,7 +59,7 @@ class ThemeProvider extends ChangeNotifier {
         fontFamily: 'NotoSans',
         color: Colors.white,
         fontWeight: FontWeight.bold,
-        fontSize: 30,
+        fontSize: 28,
       ),
       headline2: TextStyle(
         fontFamily: 'NotoSans',

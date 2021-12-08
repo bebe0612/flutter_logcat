@@ -18,7 +18,7 @@ dependencies:
   provider:
   dropdown_below: ^1.0.1
   shelf: ^1.2.0
-
+  pretty_json: ^2.0.0
 
 dev_dependencies:
   flutter_test:

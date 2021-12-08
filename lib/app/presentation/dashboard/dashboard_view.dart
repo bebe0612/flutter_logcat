@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_logcat/app/controller/environment_provider.dart';
 import 'package:flutter_logcat/app/presentation/dashboard/setting/setting_screen.dart';
+import 'package:provider/provider.dart';
 
 import 'log/log_screen.dart';
 import 'sidebar/sidebar.dart';
@@ -17,29 +19,50 @@ class _DashBoardViewState extends State<DashBoardView> {
   Widget build(BuildContext context) {
     return Material(
       color: const Color.fromRGBO(246, 248, 250, 1),
-      child: Row(
+      child: Column(
         children: [
-          SideBar(
-            onTabChanged: (index) {
-              setState(() {
-                _index = index;
-              });
-            },
-          ),
+          TopBar(),
           Expanded(
-            child: Container(
-              padding: const EdgeInsets.all(10),
-              child: IndexedStack(
-                index: _index,
-                children: const [
-                  LogScreen(),
-                  SettingScreen(),
-                ],
-              ),
+            child: Row(
+              children: [
+                SideBar(
+                  onTabChanged: (index) {
+                    setState(() {
+                      _index = index;
+                    });
+                  },
+                ),
+                Expanded(
+                  child: Container(
+                    child: IndexedStack(
+                      index: _index,
+                      children: const [
+                        LogScreen(),
+                        SettingScreen(),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class TopBar extends StatelessWidget {
+  const TopBar({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final provider = Provider.of<EnvironmentProvider>(context);
+
+    return Container(
+      child: Text(provider.ip),
     );
   }
 }

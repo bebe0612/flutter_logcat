@@ -13,16 +13,8 @@ class SettingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Theme.of(context).shadowColor,
-              blurRadius: 5.0,
-              offset: const Offset(-1, 0),
-              spreadRadius: 5.0,
-            )
-          ]),
+        color: Theme.of(context).cardColor,
+      ),
       padding: const EdgeInsetsDirectional.all(20),
       child: Column(
         children: [
