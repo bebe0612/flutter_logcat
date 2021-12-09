@@ -101,7 +101,7 @@ class LogDetailPanel extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 50),
+          const SizedBox(height: 30),
           Expanded(
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -115,6 +115,7 @@ class LogDetailPanel extends StatelessWidget {
               child: json != null ? JsonView.map(json) : null,
             ),
           ),
+          const SizedBox(height: 10),
         ],
       ),
     );

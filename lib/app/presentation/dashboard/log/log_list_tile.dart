@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_logcat/app/model/log_model.dart';
+import 'package:flutter_logcat/app/setting/log_icon_converter.dart';
 
 class LogListTile extends StatelessWidget {
   const LogListTile({
@@ -79,7 +80,7 @@ class LogListTile extends StatelessWidget {
                             width: 2,
                           )),
                       child: Icon(
-                        Icons.rss_feed,
+                        LogIconConverter.getIconData(logModel.type),
                         size: 15,
                         color: Colors.white,
                       ),
