@@ -22,9 +22,15 @@ class _$LogModelTearOff {
   const _$LogModelTearOff();
 
   _LogModel call(
-      {required String type, required String title, required String detail}) {
+      {required DateTime dateTime,
+      String type = '',
+      String method = '',
+      String title = '',
+      String detail = ''}) {
     return _LogModel(
+      dateTime: dateTime,
       type: type,
+      method: method,
       title: title,
       detail: detail,
     );
@@ -40,7 +46,9 @@ const $LogModel = _$LogModelTearOff();
 
 /// @nodoc
 mixin _$LogModel {
+  DateTime get dateTime => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
+  String get method => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get detail => throw _privateConstructorUsedError;
 
@@ -54,7 +62,12 @@ mixin _$LogModel {
 abstract class $LogModelCopyWith<$Res> {
   factory $LogModelCopyWith(LogModel value, $Res Function(LogModel) then) =
       _$LogModelCopyWithImpl<$Res>;
-  $Res call({String type, String title, String detail});
+  $Res call(
+      {DateTime dateTime,
+      String type,
+      String method,
+      String title,
+      String detail});
 }
 
 /// @nodoc
@@ -67,14 +80,24 @@ class _$LogModelCopyWithImpl<$Res> implements $LogModelCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? dateTime = freezed,
     Object? type = freezed,
+    Object? method = freezed,
     Object? title = freezed,
     Object? detail = freezed,
   }) {
     return _then(_value.copyWith(
+      dateTime: dateTime == freezed
+          ? _value.dateTime
+          : dateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
+              as String,
+      method: method == freezed
+          ? _value.method
+          : method // ignore: cast_nullable_to_non_nullable
               as String,
       title: title == freezed
           ? _value.title
@@ -93,7 +116,12 @@ abstract class _$LogModelCopyWith<$Res> implements $LogModelCopyWith<$Res> {
   factory _$LogModelCopyWith(_LogModel value, $Res Function(_LogModel) then) =
       __$LogModelCopyWithImpl<$Res>;
   @override
-  $Res call({String type, String title, String detail});
+  $Res call(
+      {DateTime dateTime,
+      String type,
+      String method,
+      String title,
+      String detail});
 }
 
 /// @nodoc
@@ -107,14 +135,24 @@ class __$LogModelCopyWithImpl<$Res> extends _$LogModelCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? dateTime = freezed,
     Object? type = freezed,
+    Object? method = freezed,
     Object? title = freezed,
     Object? detail = freezed,
   }) {
     return _then(_LogModel(
+      dateTime: dateTime == freezed
+          ? _value.dateTime
+          : dateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
+              as String,
+      method: method == freezed
+          ? _value.method
+          : method // ignore: cast_nullable_to_non_nullable
               as String,
       title: title == freezed
           ? _value.title
@@ -131,29 +169,47 @@ class __$LogModelCopyWithImpl<$Res> extends _$LogModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_LogModel implements _LogModel {
-  _$_LogModel({required this.type, required this.title, required this.detail});
+  _$_LogModel(
+      {required this.dateTime,
+      this.type = '',
+      this.method = '',
+      this.title = '',
+      this.detail = ''});
 
   factory _$_LogModel.fromJson(Map<String, dynamic> json) =>
       _$$_LogModelFromJson(json);
 
   @override
+  final DateTime dateTime;
+  @JsonKey(defaultValue: '')
+  @override
   final String type;
+  @JsonKey(defaultValue: '')
+  @override
+  final String method;
+  @JsonKey(defaultValue: '')
   @override
   final String title;
+  @JsonKey(defaultValue: '')
   @override
   final String detail;
 
   @override
   String toString() {
-    return 'LogModel(type: $type, title: $title, detail: $detail)';
+    return 'LogModel(dateTime: $dateTime, type: $type, method: $method, title: $title, detail: $detail)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _LogModel &&
+            (identical(other.dateTime, dateTime) ||
+                const DeepCollectionEquality()
+                    .equals(other.dateTime, dateTime)) &&
             (identical(other.type, type) ||
                 const DeepCollectionEquality().equals(other.type, type)) &&
+            (identical(other.method, method) ||
+                const DeepCollectionEquality().equals(other.method, method)) &&
             (identical(other.title, title) ||
                 const DeepCollectionEquality().equals(other.title, title)) &&
             (identical(other.detail, detail) ||
@@ -163,7 +219,9 @@ class _$_LogModel implements _LogModel {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(dateTime) ^
       const DeepCollectionEquality().hash(type) ^
+      const DeepCollectionEquality().hash(method) ^
       const DeepCollectionEquality().hash(title) ^
       const DeepCollectionEquality().hash(detail);
 
@@ -180,14 +238,20 @@ class _$_LogModel implements _LogModel {
 
 abstract class _LogModel implements LogModel {
   factory _LogModel(
-      {required String type,
-      required String title,
-      required String detail}) = _$_LogModel;
+      {required DateTime dateTime,
+      String type,
+      String method,
+      String title,
+      String detail}) = _$_LogModel;
 
   factory _LogModel.fromJson(Map<String, dynamic> json) = _$_LogModel.fromJson;
 
   @override
+  DateTime get dateTime => throw _privateConstructorUsedError;
+  @override
   String get type => throw _privateConstructorUsedError;
+  @override
+  String get method => throw _privateConstructorUsedError;
   @override
   String get title => throw _privateConstructorUsedError;
   @override

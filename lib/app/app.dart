@@ -3,6 +3,7 @@ import 'package:flutter_logcat/app/controller/environment_provider.dart';
 import 'package:flutter_logcat/app/controller/log_provider.dart';
 import 'package:flutter_logcat/app/controller/theme_provider.dart';
 import 'package:flutter_logcat/app/presentation/dashboard/log/log_view_controller.dart';
+import 'package:flutter_logcat/app/service/web_service.dart';
 import 'package:provider/provider.dart';
 
 import 'presentation/splash/splash_view.dart';
@@ -15,7 +16,7 @@ class App extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<EnvironmentProvider>(
-            create: (context) => EnvironmentProvider()),
+            create: (context) => EnvironmentProvider(WebService())),
         ChangeNotifierProvider<ThemeProvider>(
             create: (context) => ThemeProvider()),
         ChangeNotifierProvider<LogProvider>(

@@ -1,95 +1,116 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_logcat/app/model/log_model.dart';
+import 'package:flutter_logcat/app/setting/log_icon_converter.dart';
 
-class LogListTile extends StatefulWidget {
+class LogListTile extends StatelessWidget {
   const LogListTile({
     Key? key,
     required this.logModel,
+    required this.isFocused,
+    required this.onTap,
   }) : super(key: key);
   final LogModel logModel;
-
-  @override
-  State<LogListTile> createState() => _LogListTileState();
-}
-
-class _LogListTileState extends State<LogListTile> {
-  bool _isOpened = false;
-
+  final bool isFocused;
+  final Function(LogModel logModel) onTap;
   @override
   Widget build(BuildContext context) {
-    Color tileColor = Theme.of(context).cardColor;
-
-    switch (widget.logModel.type) {
-      case 'network':
-        tileColor = Colors.yellow[200]!;
-        break;
-      case 'navigation':
-        tileColor = Colors.green[200]!;
-        break;
-      case 'page_event':
-        tileColor = Colors.blueGrey[300]!;
-        break;
-      case 'page_state':
-        tileColor = Colors.blueGrey[200]!;
-        break;
-    }
     return Material(
-      color: tileColor,
-      shape: RoundedRectangleBorder(
-        side: BorderSide(
-          color: Theme.of(context).highlightColor,
-        ),
-        borderRadius: BorderRadius.circular(10),
-      ),
+      color: isFocused ? const Color.fromRGBO(223, 232, 251, 1) : Colors.white,
       child: InkWell(
-        onTap: () {
-          setState(() {
-            _isOpened = !_isOpened;
-          });
+        onTap: () {},
+        onTapDown: (detail) {
+          onTap(logModel);
         },
-        borderRadius: BorderRadius.circular(10),
-        child: Column(
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        child: Row(
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-              child: Row(
+              color: Colors.white,
+              width: 95,
+              height: 25,
+              child: Stack(
                 children: [
-                  Expanded(
-                    child: Text(
-                      widget.logModel.title,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(overflow: TextOverflow.ellipsis),
+                  Positioned(
+                    left: 30,
+                    child: Container(
+                      width: 65,
+                      height: 25,
+                      decoration: BoxDecoration(
+                        color: isFocused
+                            ? const Color.fromRGBO(138, 207, 223, 1)
+                            : const Color.fromRGBO(240, 240, 240, 1),
+                        border: const Border(
+                          right: BorderSide(
+                            color: Color.fromRGBO(21, 160, 191, 1),
+                            width: 3,
+                          ),
+                        ),
+                      ),
+                      alignment: Alignment.centerRight,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            logModel.method,
+                            style: Theme.of(context)
+                                .textTheme
+                                .caption!
+                                .copyWith(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
+                          ),
+                          const SizedBox(width: 5),
+                        ],
+                      ),
                     ),
                   ),
-                  const Icon(Icons.one_x_mobiledata),
+                  Positioned(
+                    top: 0.5,
+                    left: 20,
+                    child: Container(
+                      width: 25,
+                      height: 25,
+                      decoration: BoxDecoration(
+                          color: Colors.brown,
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: const Color.fromRGBO(138, 207, 223, 1),
+                            width: 2,
+                          )),
+                      child: Icon(
+                        LogIconConverter.getIconData(logModel.type),
+                        size: 15,
+                        color: Colors.white,
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
-            if (_isOpened)
-              Container(
-                height: 300,
-                margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).backgroundColor,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                padding: const EdgeInsets.all(20),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.max,
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                children: [
+                  Row(
                     children: [
-                      Row(),
-                      Text(
-                        widget.logModel.detail,
-                        style: Theme.of(context).textTheme.bodyText2,
+                      Expanded(
+                        child: Text(
+                          logModel.title,
+                          style:
+                              Theme.of(context).textTheme.bodyText2!.copyWith(
+                                    overflow: TextOverflow.ellipsis,
+                                    color: Colors.grey[900],
+                                    height: 1.2,
+                                  ),
+                        ),
                       ),
                     ],
                   ),
-                ),
-              )
+                ],
+              ),
+            ),
           ],
         ),
       ),

@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_logcat/app/controller/environment_provider.dart';
 import 'package:flutter_logcat/app/controller/log_provider.dart';
 import 'package:flutter_logcat/app/controller/theme_provider.dart';
+import 'package:flutter_logcat/app/setting/color.dart';
 import 'package:provider/provider.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -13,16 +15,8 @@ class SettingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Theme.of(context).shadowColor,
-              blurRadius: 5.0,
-              offset: const Offset(-1, 0),
-              spreadRadius: 5.0,
-            )
-          ]),
+        color: Theme.of(context).cardColor,
+      ),
       padding: const EdgeInsetsDirectional.all(20),
       child: Column(
         children: [
@@ -30,42 +24,24 @@ class SettingScreen extends StatelessWidget {
             children: [
               Text(
                 "Setting",
-                style: Theme.of(context).textTheme.headline1,
+                style: Theme.of(context).textTheme.headline2,
               ),
             ],
           ),
-          const SizedBox(height: 15),
-          const DarkModeTile(),
-          const SizedBox(height: 15),
-          const ServerPortTile(),
-          const SizedBox(height: 15),
+          Container(
+            constraints: const BoxConstraints(
+              maxWidth: 500,
+            ),
+            child: Column(
+              children: const [
+                SizedBox(height: 15),
+                DarkModeTile(),
+                ServerPortTile(),
+              ],
+            ),
+          ),
         ],
       ),
-    );
-  }
-}
-
-class FilterSection extends StatelessWidget {
-  const FilterSection({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final logProvider = Provider.of<LogProvider>(context);
-    return Column(
-      children: [
-        Row(
-          children: [
-            Expanded(
-              child: Container(
-                height: 40,
-                child: TextField(),
-              ),
-            ),
-          ],
-        ),
-      ],
     );
   }
 }
@@ -80,24 +56,21 @@ class DarkModeTile extends StatelessWidget {
     var themeProvider = Provider.of<ThemeProvider>(context);
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.grey[400]!)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Icon(
             Icons.dark_mode,
-            size: 35,
+            size: 20,
             color: Theme.of(context).highlightColor,
           ),
-          const SizedBox(width: 20),
+          const SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "다크모드 활성화",
-                style: Theme.of(context).textTheme.headline3!,
+                "Dark Mode",
+                style: Theme.of(context).textTheme.bodyText1,
               )
             ],
           ),
@@ -115,47 +88,80 @@ class DarkModeTile extends StatelessWidget {
   }
 }
 
-class ServerPortTile extends StatelessWidget {
+class ServerPortTile extends StatefulWidget {
   const ServerPortTile({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<ServerPortTile> createState() => _ServerPortTileState();
+}
+
+class _ServerPortTileState extends State<ServerPortTile> {
+  final _tc = TextEditingController();
+
+  @override
+  void initState() {
+    _tc.text =
+        Provider.of<EnvironmentProvider>(context, listen: false).portNumber;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var themeProvider = Provider.of<ThemeProvider>(context);
+    final envProvider = Provider.of<EnvironmentProvider>(context);
+
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.grey[400]!)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Icon(
             Icons.eighteen_mp_sharp,
-            size: 35,
+            size: 20,
             color: Theme.of(context).highlightColor,
           ),
-          const SizedBox(width: 20),
+          const SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "서버 포트 설정",
-                style: Theme.of(context).textTheme.headline3!,
+                "Server Port",
+                style: Theme.of(context).textTheme.bodyText1,
               )
             ],
           ),
           const Spacer(),
           SizedBox(
-            width: 100,
-            height: 40,
-            child: TextField(
+            width: 65,
+            height: 30,
+            child: TextFormField(
+              controller: _tc,
+              style: Theme.of(context).textTheme.bodyText1,
+              cursorColor: Colors.black,
+              cursorHeight: 15,
+              maxLength: 5,
+              onEditingComplete: () {
+                envProvider.setPort(_tc.text);
+                FocusScope.of(context).unfocus();
+              },
+              buildCounter: (context,
+                      {required currentLength,
+                      required isFocused,
+                      maxLength}) =>
+                  null,
+              textAlign: TextAlign.center,
               decoration: InputDecoration(
+                hintText: 'port',
+                hintStyle: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(color: Colors.grey[400]),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 10),
                 enabledBorder:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
                 focusedBorder:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
               ),
             ),
           ),

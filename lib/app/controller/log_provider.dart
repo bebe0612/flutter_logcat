@@ -4,46 +4,29 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_logcat/app/model/log_model.dart';
+import 'package:flutter_logcat/app/service/web_service.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 
 class LogProvider extends ChangeNotifier {
-  late HttpServer _server;
-
-  List<LogModel> logs = [];
+  List<LogModel> logs = [
+    LogModel(
+      dateTime: DateTime.now(),
+      type: 'network',
+      title: 'title',
+      detail: '',
+    ),
+  ];
   List<String> typeFilters = [
     'page_event',
     'page_state',
   ];
 
   LogProvider() {
-    var handler =
-        const Pipeline().addMiddleware(logRequests()).addHandler(_echoRequest);
-
-    shelf_io.serve(handler, '0.0.0.0', 15555).then(
-      (value) {
-        _server = value;
-        _server.autoCompress = true;
-        print('Serving at http://${_server.address.host}:${_server.port}');
-      },
-    );
-  }
-
-  Future<Response> _echoRequest(Request request) async {
-    try {
-      final String body = await request.readAsString();
-
-      final Map<String, dynamic> json = jsonDecode(body);
-
-      appendLog(LogModel.fromJson(json));
-    } catch (e) {}
-
-    return Response.ok('Request for "${request.url}"');
-  }
-
-  appendLog(LogModel log) {
-    if (typeFilters.contains(log.type)) return;
-    logs.add(log);
-    notifyListeners();
+    WebService().jsonDataStream.listen((json) {
+      final log = LogModel.fromJson(json);
+      logs.add(log);
+      notifyListeners();
+    });
   }
 }
