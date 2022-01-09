@@ -33,10 +33,15 @@ class SettingScreen extends StatelessWidget {
               maxWidth: 500,
             ),
             child: Column(
-              children: const [
-                SizedBox(height: 15),
-                DarkModeTile(),
-                ServerPortTile(),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 15),
+                const DarkModeTile(),
+                Text(
+                  "Server",
+                  style: Theme.of(context).textTheme.headline3!,
+                ),
+                const ServerPortTile(),
               ],
             ),
           ),
@@ -116,10 +121,10 @@ class _ServerPortTileState extends State<ServerPortTile> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Icon(
-            Icons.eighteen_mp_sharp,
+          const Icon(
+            Icons.electrical_services,
             size: 20,
-            color: Theme.of(context).highlightColor,
+            color: Colors.blueAccent,
           ),
           const SizedBox(width: 10),
           Column(
