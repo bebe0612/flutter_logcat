@@ -20,6 +20,10 @@ dependencies:
   shelf: ^1.2.0
   pretty_json: ^2.0.0
 
+  # local database
+  hive: ^2.0.5
+  hive_flutter: ^1.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
