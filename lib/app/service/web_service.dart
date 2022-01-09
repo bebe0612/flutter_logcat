@@ -8,20 +8,17 @@ import 'package:shelf/shelf_io.dart' as shelf_io;
 typedef Json = Map<String, dynamic>;
 
 class WebService {
+  static final WebService _instance = WebService._internal();
+  factory WebService() => _instance;
+  WebService._internal();
+
   late HttpServer _server;
 
   final _jsonDataStreamController = StreamController<Json>.broadcast();
   Stream<Json> get jsonDataStream => _jsonDataStreamController.stream;
 
-  init() async {
-    var handler =
-        const Pipeline().addMiddleware(logRequests()).addHandler(_echoRequest);
-
-    _server = await shelf_io.serve(handler, '0.0.0.0', 15555);
-
-    _server.autoCompress = true;
-
-    print('Serving at http://${_server.address.host}:${_server.port}');
+  init(int port) async {
+    _start(port);
   }
 
   Future<Response> _echoRequest(Request request) async {
@@ -34,7 +31,21 @@ class WebService {
     return Response.ok('Request for "${request.url}"');
   }
 
-  Future<void> updatePort(int portNumber) async {
-    //
+  int getPortNumber() => _server.port;
+
+  Future<void> setPortNumber(int portNumber) async {
+    _server.close();
+    _start(portNumber);
+  }
+
+  _start(int port) async {
+    var handler =
+        const Pipeline().addMiddleware(logRequests()).addHandler(_echoRequest);
+
+    _server = await shelf_io.serve(handler, '0.0.0.0', port);
+
+    _server.autoCompress = true;
+
+    print('Serving at http://${_server.address.host}:${_server.port}');
   }
 }
