@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter_logcat/app/service/local_database_client.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 
@@ -12,13 +13,15 @@ class WebService {
   factory WebService() => _instance;
   WebService._internal();
 
+  final LocalDatabaseClient _localDatabaseClient = LocalDatabaseClient();
+
   late HttpServer _server;
 
   final _jsonDataStreamController = StreamController<Json>.broadcast();
   Stream<Json> get jsonDataStream => _jsonDataStreamController.stream;
 
-  init(int port) async {
-    _start(port);
+  init() async {
+    _start(await _localDatabaseClient.portNumber());
   }
 
   Future<Response> _echoRequest(Request request) async {
