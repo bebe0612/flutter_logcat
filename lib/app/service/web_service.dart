@@ -21,7 +21,7 @@ class WebService {
   Stream<Json> get jsonDataStream => _jsonDataStreamController.stream;
 
   init() async {
-    _start(await _localDatabaseClient.portNumber());
+    _start(await _localDatabaseClient.getPortNumber());
   }
 
   Future<Response> _echoRequest(Request request) async {
@@ -38,6 +38,7 @@ class WebService {
 
   Future<void> setPortNumber(int portNumber) async {
     _server.close();
+    await _localDatabaseClient.setPortNumber(portNumber);
     _start(portNumber);
   }
 
