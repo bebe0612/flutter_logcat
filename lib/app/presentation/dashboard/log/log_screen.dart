@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_logcat/app/presentation/dashboard/log/log_view_controller.dart';
+import 'package:flutter_logcat/app/service/web_service.dart';
 import 'package:provider/provider.dart';
 
 import 'log_detail_panel.dart';
@@ -13,11 +14,13 @@ class LogScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final logViewController = Provider.of<LogViewController>(context);
+
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
       ),
-      child: Row(
+      child: ReactiveColumnRow(
+        boundWidth: 800,
         children: [
           Expanded(
             flex: 6,
@@ -40,5 +43,25 @@ class LogScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class ReactiveColumnRow extends StatelessWidget {
+  const ReactiveColumnRow({
+    Key? key,
+    required this.children,
+    required this.boundWidth,
+  }) : super(key: key);
+  final List<Widget> children;
+  final double boundWidth;
+  @override
+  Widget build(BuildContext context) {
+    return boundWidth < MediaQuery.of(context).size.width
+        ? Row(
+            children: children,
+          )
+        : Column(
+            children: children,
+          );
   }
 }
