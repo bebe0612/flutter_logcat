@@ -28,6 +28,7 @@ class WebService {
     try {
       final String body = await request.readAsString();
       final Map<String, dynamic> json = jsonDecode(body);
+      _jsonDataStreamController.add(json);
     } catch (e) {
       return Response.internalServerError(body: e.toString());
     }
