@@ -9,25 +9,32 @@ class LogFilterPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final logProvider = Provider.of<LogProvider>(context);
 
-    return Container(
-      height: 40,
-      decoration: BoxDecoration(
+    return Scrollbar(
+      child: Container(
+        height: 40,
+        decoration: BoxDecoration(
           border: Border.all(
-        color: Colors.grey,
-      )),
-      child: Row(
-        children: [
-          const SizedBox(width: 10),
-          ...logProvider.topics.keys
-              .map((e) => FilterItem(
-                    text: e,
-                    isSelected: logProvider.topics[e]!,
-                    onTap: () {
-                      logProvider.toggleFilter(e);
-                    },
-                  ))
-              .toList(),
-        ],
+            color: Colors.grey,
+          ),
+        ),
+        alignment: Alignment.centerLeft,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              const SizedBox(width: 10),
+              ...logProvider.topics.keys
+                  .map((e) => FilterItem(
+                        text: e,
+                        isSelected: logProvider.topics[e]!,
+                        onTap: () {
+                          logProvider.toggleFilter(e);
+                        },
+                      ))
+                  .toList(),
+            ],
+          ),
+        ),
       ),
     );
   }
