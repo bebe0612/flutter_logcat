@@ -62,7 +62,7 @@ class TopBar extends StatelessWidget {
     final provider = Provider.of<EnvironmentProvider>(context);
 
     return Container(
-      child: Text(provider.ip),
+      child: Text(provider.ip + ':' + provider.portNumber),
     );
   }
 }

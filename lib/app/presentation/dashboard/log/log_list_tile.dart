@@ -5,17 +5,21 @@ import 'package:flutter_logcat/app/setting/log_icon_converter.dart';
 class LogListTile extends StatelessWidget {
   const LogListTile({
     Key? key,
+    required this.idx,
     required this.logModel,
     required this.isFocused,
     required this.onTap,
   }) : super(key: key);
+  final int idx;
   final LogModel logModel;
   final bool isFocused;
   final Function(LogModel logModel) onTap;
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: isFocused ? const Color.fromRGBO(223, 232, 251, 1) : Colors.white,
+      color: isFocused
+          ? const Color.fromRGBO(223, 232, 251, 1)
+          : (idx % 2 == 0 ? Colors.grey[100] : Colors.white),
       child: InkWell(
         onTap: () {},
         onTapDown: (detail) {
@@ -23,96 +27,66 @@ class LogListTile extends StatelessWidget {
         },
         highlightColor: Colors.transparent,
         splashColor: Colors.transparent,
-        child: Row(
-          children: [
-            Container(
-              color: Colors.white,
-              width: 95,
-              height: 25,
-              child: Stack(
-                children: [
-                  Positioned(
-                    left: 30,
-                    child: Container(
-                      width: 65,
-                      height: 25,
-                      decoration: BoxDecoration(
-                        color: isFocused
-                            ? const Color.fromRGBO(138, 207, 223, 1)
-                            : const Color.fromRGBO(240, 240, 240, 1),
-                        border: const Border(
-                          right: BorderSide(
-                            color: Color.fromRGBO(21, 160, 191, 1),
-                            width: 3,
+        child: Container(
+          height: 45,
+          child: Row(
+            children: [
+              _leading(context),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      logModel.title,
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                            overflow: TextOverflow.ellipsis,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey[900],
+                            height: 1.2,
                           ),
-                        ),
-                      ),
-                      alignment: Alignment.centerRight,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            logModel.method,
-                            style: Theme.of(context)
-                                .textTheme
-                                .caption!
-                                .copyWith(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
+                    ),
+                    Text(
+                      logModel.detail,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                            overflow: TextOverflow.ellipsis,
+                            color: Colors.grey[900],
+                            height: 1.2,
                           ),
-                          const SizedBox(width: 5),
-                        ],
-                      ),
                     ),
-                  ),
-                  Positioned(
-                    top: 0.5,
-                    left: 20,
-                    child: Container(
-                      width: 25,
-                      height: 25,
-                      decoration: BoxDecoration(
-                          color: Colors.brown,
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: const Color.fromRGBO(138, 207, 223, 1),
-                            width: 2,
-                          )),
-                      child: Icon(
-                        LogIconConverter.getIconData(logModel.type),
-                        size: 15,
-                        color: Colors.white,
-                      ),
-                    ),
-                  )
-                ],
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          logModel.title,
-                          style:
-                              Theme.of(context).textTheme.bodyText2!.copyWith(
-                                    overflow: TextOverflow.ellipsis,
-                                    color: Colors.grey[900],
-                                    height: 1.2,
-                                  ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(logModel.type,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText2!
+                        .copyWith(color: Colors.white)),
               ),
-            ),
-          ],
+              const SizedBox(width: 10),
+            ],
+          ),
         ),
+      ),
+    );
+  }
+
+  Container _leading(BuildContext context) {
+    return Container(
+      width: 95,
+      alignment: Alignment.center,
+      child: Text(
+        logModel.createdDt.toString().replaceAll(' ', '\n').split('.')[0],
+        style: Theme.of(context).textTheme.bodyText2,
       ),
     );
   }

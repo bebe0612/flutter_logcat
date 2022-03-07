@@ -22,17 +22,19 @@ class _$LogModelTearOff {
   const _$LogModelTearOff();
 
   _LogModel call(
-      {required DateTime dateTime,
+      {DateTime? createdDt,
       String type = '',
-      String method = '',
       String title = '',
-      String detail = ''}) {
+      String detail = '',
+      String dataFormat = 'plain',
+      String data = ''}) {
     return _LogModel(
-      dateTime: dateTime,
+      createdDt: createdDt,
       type: type,
-      method: method,
       title: title,
       detail: detail,
+      dataFormat: dataFormat,
+      data: data,
     );
   }
 
@@ -46,11 +48,12 @@ const $LogModel = _$LogModelTearOff();
 
 /// @nodoc
 mixin _$LogModel {
-  DateTime get dateTime => throw _privateConstructorUsedError;
+  DateTime? get createdDt => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
-  String get method => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get detail => throw _privateConstructorUsedError;
+  String get dataFormat => throw _privateConstructorUsedError;
+  String get data => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -63,11 +66,12 @@ abstract class $LogModelCopyWith<$Res> {
   factory $LogModelCopyWith(LogModel value, $Res Function(LogModel) then) =
       _$LogModelCopyWithImpl<$Res>;
   $Res call(
-      {DateTime dateTime,
+      {DateTime? createdDt,
       String type,
-      String method,
       String title,
-      String detail});
+      String detail,
+      String dataFormat,
+      String data});
 }
 
 /// @nodoc
@@ -80,24 +84,21 @@ class _$LogModelCopyWithImpl<$Res> implements $LogModelCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? dateTime = freezed,
+    Object? createdDt = freezed,
     Object? type = freezed,
-    Object? method = freezed,
     Object? title = freezed,
     Object? detail = freezed,
+    Object? dataFormat = freezed,
+    Object? data = freezed,
   }) {
     return _then(_value.copyWith(
-      dateTime: dateTime == freezed
-          ? _value.dateTime
-          : dateTime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+      createdDt: createdDt == freezed
+          ? _value.createdDt
+          : createdDt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as String,
-      method: method == freezed
-          ? _value.method
-          : method // ignore: cast_nullable_to_non_nullable
               as String,
       title: title == freezed
           ? _value.title
@@ -106,6 +107,14 @@ class _$LogModelCopyWithImpl<$Res> implements $LogModelCopyWith<$Res> {
       detail: detail == freezed
           ? _value.detail
           : detail // ignore: cast_nullable_to_non_nullable
+              as String,
+      dataFormat: dataFormat == freezed
+          ? _value.dataFormat
+          : dataFormat // ignore: cast_nullable_to_non_nullable
+              as String,
+      data: data == freezed
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -117,11 +126,12 @@ abstract class _$LogModelCopyWith<$Res> implements $LogModelCopyWith<$Res> {
       __$LogModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {DateTime dateTime,
+      {DateTime? createdDt,
       String type,
-      String method,
       String title,
-      String detail});
+      String detail,
+      String dataFormat,
+      String data});
 }
 
 /// @nodoc
@@ -135,24 +145,21 @@ class __$LogModelCopyWithImpl<$Res> extends _$LogModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? dateTime = freezed,
+    Object? createdDt = freezed,
     Object? type = freezed,
-    Object? method = freezed,
     Object? title = freezed,
     Object? detail = freezed,
+    Object? dataFormat = freezed,
+    Object? data = freezed,
   }) {
     return _then(_LogModel(
-      dateTime: dateTime == freezed
-          ? _value.dateTime
-          : dateTime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+      createdDt: createdDt == freezed
+          ? _value.createdDt
+          : createdDt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as String,
-      method: method == freezed
-          ? _value.method
-          : method // ignore: cast_nullable_to_non_nullable
               as String,
       title: title == freezed
           ? _value.title
@@ -162,6 +169,14 @@ class __$LogModelCopyWithImpl<$Res> extends _$LogModelCopyWithImpl<$Res>
           ? _value.detail
           : detail // ignore: cast_nullable_to_non_nullable
               as String,
+      dataFormat: dataFormat == freezed
+          ? _value.dataFormat
+          : dataFormat // ignore: cast_nullable_to_non_nullable
+              as String,
+      data: data == freezed
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -170,60 +185,68 @@ class __$LogModelCopyWithImpl<$Res> extends _$LogModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_LogModel implements _LogModel {
   _$_LogModel(
-      {required this.dateTime,
+      {this.createdDt,
       this.type = '',
-      this.method = '',
       this.title = '',
-      this.detail = ''});
+      this.detail = '',
+      this.dataFormat = 'plain',
+      this.data = ''});
 
   factory _$_LogModel.fromJson(Map<String, dynamic> json) =>
       _$$_LogModelFromJson(json);
 
   @override
-  final DateTime dateTime;
+  final DateTime? createdDt;
   @JsonKey(defaultValue: '')
   @override
   final String type;
-  @JsonKey(defaultValue: '')
-  @override
-  final String method;
   @JsonKey(defaultValue: '')
   @override
   final String title;
   @JsonKey(defaultValue: '')
   @override
   final String detail;
+  @JsonKey(defaultValue: 'plain')
+  @override
+  final String dataFormat;
+  @JsonKey(defaultValue: '')
+  @override
+  final String data;
 
   @override
   String toString() {
-    return 'LogModel(dateTime: $dateTime, type: $type, method: $method, title: $title, detail: $detail)';
+    return 'LogModel(createdDt: $createdDt, type: $type, title: $title, detail: $detail, dataFormat: $dataFormat, data: $data)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _LogModel &&
-            (identical(other.dateTime, dateTime) ||
+            (identical(other.createdDt, createdDt) ||
                 const DeepCollectionEquality()
-                    .equals(other.dateTime, dateTime)) &&
+                    .equals(other.createdDt, createdDt)) &&
             (identical(other.type, type) ||
                 const DeepCollectionEquality().equals(other.type, type)) &&
-            (identical(other.method, method) ||
-                const DeepCollectionEquality().equals(other.method, method)) &&
             (identical(other.title, title) ||
                 const DeepCollectionEquality().equals(other.title, title)) &&
             (identical(other.detail, detail) ||
-                const DeepCollectionEquality().equals(other.detail, detail)));
+                const DeepCollectionEquality().equals(other.detail, detail)) &&
+            (identical(other.dataFormat, dataFormat) ||
+                const DeepCollectionEquality()
+                    .equals(other.dataFormat, dataFormat)) &&
+            (identical(other.data, data) ||
+                const DeepCollectionEquality().equals(other.data, data)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(dateTime) ^
+      const DeepCollectionEquality().hash(createdDt) ^
       const DeepCollectionEquality().hash(type) ^
-      const DeepCollectionEquality().hash(method) ^
       const DeepCollectionEquality().hash(title) ^
-      const DeepCollectionEquality().hash(detail);
+      const DeepCollectionEquality().hash(detail) ^
+      const DeepCollectionEquality().hash(dataFormat) ^
+      const DeepCollectionEquality().hash(data);
 
   @JsonKey(ignore: true)
   @override
@@ -238,24 +261,27 @@ class _$_LogModel implements _LogModel {
 
 abstract class _LogModel implements LogModel {
   factory _LogModel(
-      {required DateTime dateTime,
+      {DateTime? createdDt,
       String type,
-      String method,
       String title,
-      String detail}) = _$_LogModel;
+      String detail,
+      String dataFormat,
+      String data}) = _$_LogModel;
 
   factory _LogModel.fromJson(Map<String, dynamic> json) = _$_LogModel.fromJson;
 
   @override
-  DateTime get dateTime => throw _privateConstructorUsedError;
+  DateTime? get createdDt => throw _privateConstructorUsedError;
   @override
   String get type => throw _privateConstructorUsedError;
-  @override
-  String get method => throw _privateConstructorUsedError;
   @override
   String get title => throw _privateConstructorUsedError;
   @override
   String get detail => throw _privateConstructorUsedError;
+  @override
+  String get dataFormat => throw _privateConstructorUsedError;
+  @override
+  String get data => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$LogModelCopyWith<_LogModel> get copyWith =>

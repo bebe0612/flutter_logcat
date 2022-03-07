@@ -6,20 +6,14 @@ part 'log_model.g.dart';
 @freezed
 class LogModel with _$LogModel {
   factory LogModel({
-    required DateTime dateTime,
+    DateTime? createdDt,
     @Default('') String type,
-    @Default('') String method,
     @Default('') String title,
     @Default('') String detail,
+    @Default('plain') String dataFormat,
+    @Default('') String data,
   }) = _LogModel;
 
   factory LogModel.fromJson(Map<String, dynamic> json) =>
       _$LogModelFromJson(json);
-}
-
-enum LogType {
-  network,
-  pageEvent,
-  pageStateChange,
-  navigation,
 }

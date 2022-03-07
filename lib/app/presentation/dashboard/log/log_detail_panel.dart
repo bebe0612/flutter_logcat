@@ -19,12 +19,10 @@ class LogDetailPanel extends StatelessWidget {
     //
     Map<String, dynamic>? json;
 
-    if (focusLog?.detail != null) {
+    if (focusLog?.dataFormat == 'json' && focusLog?.detail != null) {
       try {
-        json = jsonDecode(focusLog!.detail);
-      } catch (e) {
-        print("parsing fail");
-      }
+        json = jsonDecode(focusLog!.data);
+      } catch (e) {}
     }
 
     if (focusLog == null) {
@@ -53,7 +51,7 @@ class LogDetailPanel extends StatelessWidget {
                 Container(
                   width: 40,
                   height: 40,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.blueGrey,
                     shape: BoxShape.circle,
                   ),
@@ -62,35 +60,25 @@ class LogDetailPanel extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Expanded(
                     child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text.rich(
-                      TextSpan(
-                        text: focusLog.method + ' ',
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                              backgroundColor: Colors.yellow,
-                            ),
-                        children: [
-                          TextSpan(
-                            text: focusLog.title,
-                            style: const TextStyle(
-                                color: Colors.black,
-                                backgroundColor: Colors.transparent),
-                          )
-                        ],
-                      ),
-                    ),
+                    Text.rich(TextSpan(
+                      text: focusLog.title,
+                      style: const TextStyle(
+                          color: Colors.black,
+                          backgroundColor: Colors.transparent),
+                    )),
                     Text.rich(
                       TextSpan(
                         text: 'date : ',
                         style: Theme.of(context).textTheme.caption,
                         children: [
                           TextSpan(
-                              text: focusLog.dateTime.toString(),
-                              style: TextStyle(
+                              text: focusLog.createdDt.toString(),
+                              style: const TextStyle(
                                 color: Colors.black,
                               ))
                         ],
@@ -112,7 +100,8 @@ class LogDetailPanel extends StatelessWidget {
                   color: const Color.fromRGBO(223, 223, 223, 1),
                 ),
               ),
-              child: json != null ? JsonView.map(json) : null,
+              alignment: Alignment.topLeft,
+              child: json != null ? JsonView.map(json) : Text(focusLog.data),
             ),
           ),
           const SizedBox(height: 10),

@@ -31,14 +31,12 @@ class _LogListPanelState extends State<LogListPanel> {
         }
       });
     }
-    return ListView.separated(
+    return ListView.builder(
       controller: _scrollController,
       itemCount: logProvider.logs.length,
-      separatorBuilder: (context, index) {
-        return const SizedBox(height: 10);
-      },
       itemBuilder: (context, index) {
         return LogListTile(
+          idx: index,
           logModel: logProvider.logs[index],
           isFocused:
               logViewController.focusedLogModel == logProvider.logs[index],

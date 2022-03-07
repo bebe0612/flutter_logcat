@@ -11,7 +11,7 @@ import 'package:shelf/shelf_io.dart' as shelf_io;
 class LogProvider extends ChangeNotifier {
   List<LogModel> logs = [
     LogModel(
-      dateTime: DateTime.now(),
+      createdDt: DateTime.now(),
       type: 'network',
       title: 'title',
       detail: '',
@@ -24,7 +24,7 @@ class LogProvider extends ChangeNotifier {
 
   LogProvider() {
     WebService().jsonDataStream.listen((json) {
-      final log = LogModel.fromJson(json);
+      final log = LogModel.fromJson(json).copyWith(createdDt: DateTime.now());
       logs.add(log);
       notifyListeners();
     });
