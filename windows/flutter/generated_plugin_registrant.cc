@@ -6,9 +6,12 @@
 
 #include "generated_plugin_registrant.h"
 
+#include <desktop_window/desktop_window_plugin.h>
 #include <r_get_ip/r_get_ip_plugin.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
+  DesktopWindowPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("DesktopWindowPlugin"));
   RGetIpPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("RGetIpPlugin"));
 }

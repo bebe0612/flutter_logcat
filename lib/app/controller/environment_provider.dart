@@ -20,5 +20,6 @@ class EnvironmentProvider extends ChangeNotifier {
 
   setPort(String portNumber) async {
     await _webService.setPortNumber(int.parse(portNumber));
+    notifyListeners();
   }
 }

@@ -1,4 +1,6 @@
 PODS:
+  - desktop_window (0.0.1):
+    - FlutterMacOS
   - FlutterMacOS (1.0.0)
   - path_provider_macos (0.0.1):
     - FlutterMacOS
@@ -6,11 +8,14 @@ PODS:
     - FlutterMacOS
 
 DEPENDENCIES:
+  - desktop_window (from `Flutter/ephemeral/.symlinks/plugins/desktop_window/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - path_provider_macos (from `Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos`)
   - r_get_ip (from `Flutter/ephemeral/.symlinks/plugins/r_get_ip/macos`)
 
 EXTERNAL SOURCES:
+  desktop_window:
+    :path: Flutter/ephemeral/.symlinks/plugins/desktop_window/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
   path_provider_macos:
@@ -19,6 +24,7 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/r_get_ip/macos
 
 SPEC CHECKSUMS:
+  desktop_window: fb7c4f12c1129f947ac482296b6f14059d57a3c3
   FlutterMacOS: 57701585bf7de1b3fc2bb61f6378d73bbdea8424
   path_provider_macos: 160cab0d5461f0c0e02995469a98f24bdb9a3f1f
   r_get_ip: 6359e31b5cf2d9122e6da33bcd1ddb80e4f5cc25

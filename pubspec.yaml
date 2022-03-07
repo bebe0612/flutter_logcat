@@ -23,6 +23,7 @@ dependencies:
   # local database
   hive: ^2.0.5
   hive_flutter: ^1.1.0
+  desktop_window: ^0.4.0
 
 dev_dependencies:
   flutter_test:
