@@ -23,12 +23,13 @@
 # Flutter/Dart/Pub related
 **/doc/api/
 **/ios/Flutter/.last_build_id
-.dart_tool/
+**/.dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
-.packages
+**/.packages
 .pub-cache/
 .pub/
+**/build/
 /build/
 
 # Web related
@@ -44,3 +45,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+!.keep
+/update_coverage.sh
