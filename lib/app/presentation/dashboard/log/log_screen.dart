@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_logcat/app/presentation/dashboard/log/log_filter_panel.dart';
 import 'package:flutter_logcat/app/presentation/dashboard/log/log_view_controller.dart';
 import 'package:flutter_logcat/app/service/web_service.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +29,7 @@ class LogScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
-                SizedBox(height: 20),
+                LogFilterPanel(),
                 Expanded(
                   child: LogListPanel(),
                 ),

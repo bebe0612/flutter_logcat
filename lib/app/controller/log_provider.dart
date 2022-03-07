@@ -9,23 +9,43 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 
 class LogProvider extends ChangeNotifier {
-  List<LogModel> logs = [
-    LogModel(
-      createdDt: DateTime.now(),
-      type: 'network',
-      title: 'title',
-      detail: '',
-    ),
-  ];
-  List<String> typeFilters = [
-    'page_event',
-    'page_state',
-  ];
+  Map<String, bool> topics = {};
+
+  List<LogModel> _logs = [];
+
+  List<LogModel> logs = [];
+
+  toggleFilter(String text) {
+    if (topics.containsKey(text)) {
+      topics[text] = !(topics[text]!);
+
+      logs = _logs.where((log) {
+        if (topics[log.title] == true) {
+          return true;
+        }
+        return false;
+      }).toList();
+      notifyListeners();
+    }
+  }
+
+  _addLog(LogModel log) {
+    _logs.add(log);
+
+    if (topics[log.title] == true) {
+      logs.add(log);
+    }
+  }
 
   LogProvider() {
     WebService().jsonDataStream.listen((json) {
       final log = LogModel.fromJson(json).copyWith(createdDt: DateTime.now());
-      logs.add(log);
+
+      if (!topics.containsKey(log.title)) {
+        topics[log.title] = true;
+      }
+      _addLog(log);
+
       notifyListeners();
     });
   }

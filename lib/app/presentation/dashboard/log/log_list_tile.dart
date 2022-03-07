@@ -60,18 +60,7 @@ class LogListTile extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(logModel.type,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText2!
-                        .copyWith(color: Colors.white)),
-              ),
+              Tag(logModel: logModel),
               const SizedBox(width: 10),
             ],
           ),
@@ -88,6 +77,44 @@ class LogListTile extends StatelessWidget {
         logModel.createdDt.toString().replaceAll(' ', '\n').split('.')[0],
         style: Theme.of(context).textTheme.bodyText2,
       ),
+    );
+  }
+}
+
+class Tag extends StatelessWidget {
+  const Tag({
+    Key? key,
+    required this.logModel,
+  }) : super(key: key);
+
+  final LogModel logModel;
+
+  @override
+  Widget build(BuildContext context) {
+    Color backgroundColor = Colors.blue;
+
+    switch (logModel.type.toLowerCase()) {
+      case 'info':
+        backgroundColor = Colors.blue;
+        break;
+      case 'warn':
+        backgroundColor = Colors.orange;
+        break;
+      case 'fatal':
+        backgroundColor = Colors.red;
+        break;
+    }
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(logModel.type,
+          style: Theme.of(context)
+              .textTheme
+              .bodyText2!
+              .copyWith(color: Colors.white)),
     );
   }
 }
